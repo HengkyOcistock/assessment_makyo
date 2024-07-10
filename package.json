@@ -1,4 +1,5 @@
 {
+  "homepage": "http://HengkyOcistock.github.io/assessment_makyo",
   "name": "assessment-dropdownmenu",
   "private": true,
   "version": "0.0.0",
@@ -9,6 +10,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --port 5173 --strictPort",
     "storybook": "storybook dev -p 6006",
+    "predeploy": "npm run build-storybook",
+    "deploy-storybook": "gh-pages -d storybook-static",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -40,6 +43,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "^0.8.0",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.39",
     "prop-types": "^15.8.1",
     "storybook": "^8.1.11",
