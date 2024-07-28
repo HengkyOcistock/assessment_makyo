@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PropTypes from 'prop-types';
 import { options } from './options';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { getHighlightedText } from '../../helpers/getHighlightedText';
 
 export interface DropdownMenuProps {
   /**
@@ -31,14 +32,16 @@ export const DropdownMenu = ({
   multiple = true,
 }: DropdownMenuProps) => {
   const [selectedOption, setSelectedOption] = useState<string[]>([])
-  const [showDropdown, setShowDropdown] = useState(true)
+  const [showDropdown, setShowDropdown] = useState(false)
   const [keyword, setKeyword] = useState('')
 
+  // handle click outside of dropdown component
   const filterRef = useOutsideClick(() => {
     setShowDropdown(false)
   });
 
   useEffect(() => {
+    // function to replace options values with the new highlighted strings
     const searchKeyword = keyword.trim()
     if (searchKeyword !== '') {
       options.map((opt) => {
@@ -54,16 +57,6 @@ export const DropdownMenu = ({
     } else {
       setSelectedOption([value])
     }
-  }
-
-  const getHighlightedText = (text: string) => {
-    const searchKeyword = keyword.trim()
-    const parts = text.split(new RegExp(`(${searchKeyword})`, 'gi'));
-    return <span> {parts.map((part, i) =>
-      <span key={i} style={part.toLowerCase() === searchKeyword.toLowerCase() ? { background: 'cyan' } : {}}>
-        {part}
-      </span>)
-    } </span>;
   }
 
   return (
@@ -101,7 +94,7 @@ export const DropdownMenu = ({
 
             <div className="w-full border rounded-b">
               {options?.filter(i => !selectedOption.includes(i)).map((opt) => (
-                <div key={opt} className="p-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleSelect(opt)}>{getHighlightedText(opt)}</div>
+                <div key={opt} className="p-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleSelect(opt)}>{getHighlightedText(opt, keyword)}</div>
               ))}
             </div>
           </div>

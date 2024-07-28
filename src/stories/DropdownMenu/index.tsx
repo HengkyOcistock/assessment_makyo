@@ -32,7 +32,7 @@ export const DropdownMenu = ({
   multiple = true,
 }: DropdownMenuProps) => {
   const [selectedOption, setSelectedOption] = useState<string[]>([])
-  const [showDropdown, setShowDropdown] = useState(true)
+  const [showDropdown, setShowDropdown] = useState(false)
   const [keyword, setKeyword] = useState('')
 
   // handle click outside of dropdown component
@@ -41,6 +41,7 @@ export const DropdownMenu = ({
   });
 
   useEffect(() => {
+    // function to replace options values with the new highlighted strings
     const searchKeyword = keyword.trim()
     if (searchKeyword !== '') {
       options.map((opt) => {
